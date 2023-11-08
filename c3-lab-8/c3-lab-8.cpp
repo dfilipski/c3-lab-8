@@ -110,9 +110,32 @@ public:
 	friend ostream& operator<< (ostream&, const EmployeeKind&);
 };
 
+class PartTime : public EmployeeKind
+{
+public:
+	PartTime() : _maxHours(0) {}
+	PartTime(unsigned maxHours) : _maxHours(maxHours) {}
+	~PartTime() { cout << "PartTime destructor called\n"; }
+
+	unsigned getMaxHours() const { return _maxHours; }
+
+	void output(ostream& out) const { out << *this; }
+
+	friend ostream& operator<< (ostream&, const PartTime&);
+private:
+	unsigned _maxHours;
+};
+
 ostream& operator<<(ostream& out, const EmployeeKind& ek)
 {
 	out << "EmployeeKind (no member variables)\n" << endl;
+
+	return out;
+}
+
+ostream& operator<<(ostream& out, const PartTime& pt)
+{
+	out << "Max Hours:\t\t" << pt.getMaxHours() << endl;
 
 	return out;
 }
